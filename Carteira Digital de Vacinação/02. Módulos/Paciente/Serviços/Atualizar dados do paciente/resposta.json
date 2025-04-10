@@ -1,0 +1,7 @@
+{
+  "nomeCompleto": "String",
+  "cpf": "String",
+  "dataNascimento": "LocalDateTime",
+  "telefone": "String",
+  "email": "String"
+}

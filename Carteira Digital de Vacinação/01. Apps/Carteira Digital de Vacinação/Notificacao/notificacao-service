@@ -1,0 +1,1 @@
+Responsável por gerar e enviar notificações relacionadas à próxima dose ou campanhas futuras (via RabbitMQ, email, SMS, etc).

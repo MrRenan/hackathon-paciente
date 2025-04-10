@@ -1,0 +1,4 @@
+{
+  "mensagem": "Paciente com CPF {cpf} não encontrado.",
+  "codigo": "PACIENTE_NAO_ENCONTRADO"
+}
