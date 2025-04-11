@@ -1,13 +1,13 @@
-package br.com.fiap.hackathon_paciente;
+package br.com.fiap;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HackathonPacienteApplication {
+public class PacienteApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HackathonPacienteApplication.class, args);
+		SpringApplication.run(PacienteApplication.class, args);
 	}
 
 }
