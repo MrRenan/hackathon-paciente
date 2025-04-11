@@ -1,0 +1,18 @@
+[
+  {
+    "nome": "String",
+    "fabricante": "String",
+    "doses": 0,
+    "intervaloEntreDosesEmDias": 0,
+    "descricao": "String",
+    "grupo": "String"
+  },
+  {
+    "nome": "String",
+    "fabricante": "String",
+    "doses": 0,
+    "intervaloEntreDosesEmDias": 0,
+    "descricao": "String",
+    "grupo": "String"
+  }
+]
