@@ -1,8 +1,0 @@
-{
-  "cpf": "12345678900",
-  "vacina": {
-    "nome": "Hepatite B",
-    "doseAplicada": 2,
-    "dataAplicacao": "2025-04-10T14:00:00"
-  }
-}

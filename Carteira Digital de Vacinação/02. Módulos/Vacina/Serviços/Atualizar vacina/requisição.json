@@ -1,9 +1,0 @@
-{
-  "nome": "String",
-  "fabricante": "String",
-  "doseAplicada": 0,
-  "doses": 0,
-  "intervaloEntreDosesEmDias": 0,
-  "descricao": "String",
-  "grupo": "String"
-}
