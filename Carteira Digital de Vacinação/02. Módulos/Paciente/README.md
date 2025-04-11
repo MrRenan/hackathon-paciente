@@ -6,6 +6,13 @@ Cada subpasta representa um endpoint específico do microsserviço de Paciente, 
 
 ## 📁 Estrutura de Pastas
 
+Paciente/ 
+<br>├── Serviços/
+<br>│ ├── Atualizar dados do paciente/
+<br>│ ├── Buscar paciente por CPF/
+<br>│ ├── Criar um novo paciente/
+<br>│ ├── Listar todos os pacientes/
+<br>│ └── Remover paciente/
 
 ## 📄 Conteúdo de cada pasta
 

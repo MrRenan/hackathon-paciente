@@ -1,12 +1,19 @@
-# Documentação dos Serviços - Vacina
+# Documentação dos Serviços - Carteira de Vacinação
 
-Este diretório contém a documentação detalhada dos endpoints relacionados à entidade **Vacina** no contexto da Carteira Digital de Vacinação.
+Este diretório contém a documentação detalhada dos endpoints relacionados à **Carteira de Vacinação** no contexto da aplicação de vacinação digital.
 
-Cada subpasta representa um endpoint específico do microsserviço de Vacina, com a descrição dos fluxos principais, fluxos de exceção e exemplos de requisições e respostas.
+Cada subpasta representa um endpoint específico do microsserviço de Carteira, com a descrição dos fluxos principais, fluxos de exceção e exemplos de requisições e respostas.
 
 ## 📁 Estrutura de Pastas
 
+Carteira 
+<br>└── Serviços
+<br>│ ├── Atualizar uma vacina aplicada
+<br>│ ├── Buscar carteira por CPF
+<br>│ ├── Criar carteira de vacinação
+<br>│ └── Incluir vacina aplicada
 
+#
 ## 📄 Conteúdo de cada pasta
 
 Cada pasta segue a seguinte estrutura:
@@ -23,7 +30,8 @@ Cada pasta segue a seguinte estrutura:
 
 - Criar uma nova vacina
 - Buscar vacina por nome
-- Atualizar vacina
+- Buscar vacina por ID
+- Atualizar dados da vacina
 - Listar todas as vacinas
 - Remover vacina
 

@@ -1,0 +1,15 @@
+{
+  "cpf": "12345678900",
+  "vacinas": [
+    {
+      "nome": "Hepatite B",
+      "doseAplicada": 1,
+      "dataAplicacao": "2025-04-01T10:30:00"
+    },
+    {
+      "nome": "Tétano",
+      "doseAplicada": 2,
+      "dataAplicacao": "2025-04-01T10:30:00"
+    }
+  ]
+}

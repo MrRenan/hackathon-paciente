@@ -1,0 +1,31 @@
+{
+  "cpf": "12345678900",
+  "paciente": {
+    "nomeCompleto": "João da Silva",
+    "dataNascimento": "1990-05-20",
+    "telefone": "11999999999",
+    "email": "joao.silva@email.com"
+  },
+  "vacinas": [
+    {
+      "nome": "Hepatite B",
+      "fabricante": "BioPharma",
+      "descricao": "Vacina contra Hepatite B",
+      "doseAplicada": 1,
+      "doses": 3,
+      "intervaloEntreDosesEmDias": 30,
+      "grupo": "Adulto",
+      "dataAplicacao": "2025-04-01T10:30:00"
+    },
+    {
+      "nome": "Tétano",
+      "fabricante": "ImunoVac",
+      "descricao": "Vacina antitetânica",
+      "doseAplicada": 2,
+      "doses": 3,
+      "intervaloEntreDosesEmDias": 60,
+      "grupo": "Adulto",
+      "dataAplicacao": "2025-03-10T09:00:00"
+    }
+  ]
+}
