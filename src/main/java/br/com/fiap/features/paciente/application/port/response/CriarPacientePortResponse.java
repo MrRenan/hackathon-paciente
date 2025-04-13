@@ -10,4 +10,5 @@ public record CriarPacientePortResponse(
         String telefone,
         String email
 ) {
+
 }

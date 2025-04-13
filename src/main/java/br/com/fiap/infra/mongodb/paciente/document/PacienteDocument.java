@@ -12,4 +12,5 @@ public record PacienteDocument(
         String telefone,
         String email
 ) {
+
 }

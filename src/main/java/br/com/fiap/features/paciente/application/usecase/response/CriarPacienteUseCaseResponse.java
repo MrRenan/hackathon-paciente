@@ -10,4 +10,5 @@ public record CriarPacienteUseCaseResponse(
         String telefone,
         String email
 ) {
+
 }

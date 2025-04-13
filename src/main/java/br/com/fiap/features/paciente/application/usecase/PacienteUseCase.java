@@ -1,6 +1,5 @@
 package br.com.fiap.features.paciente.application.usecase;
 
-import br.com.fiap.features.paciente.adapter.in.rest.v1.response.CriarPacienteResponse;
 import br.com.fiap.features.paciente.application.mapper.PacienteApplicationMapper;
 import br.com.fiap.features.paciente.application.port.PacientePort;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequest;
@@ -20,4 +19,5 @@ public class PacienteUseCase {
         var criarPacienteResponse = port.criarPaciente(criarPacientePortRequest);
         return mapper.paraCriarPacienteUseCaseResponse(criarPacienteResponse);
     }
+
 }

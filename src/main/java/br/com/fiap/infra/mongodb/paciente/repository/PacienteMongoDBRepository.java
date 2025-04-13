@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository("pacienteMongoDBRepository")
+@Repository
 public interface PacienteMongoDBRepository extends MongoRepository<PacienteDocument, String> {
 
     Optional<PacienteDocument> findByCpf(String cpf);

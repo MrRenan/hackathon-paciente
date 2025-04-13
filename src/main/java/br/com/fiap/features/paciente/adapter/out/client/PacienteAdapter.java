@@ -4,7 +4,7 @@ import br.com.fiap.features.paciente.adapter.out.client.mapper.PacienteOutMapper
 import br.com.fiap.features.paciente.application.port.PacientePort;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.response.CriarPacientePortResponse;
-import br.com.fiap.features.paciente.domain.exception.PacienteJaCadastradoException;
+import br.com.fiap.features.paciente.domain.exception.PacienteCadastradoException;
 import br.com.fiap.infra.mongodb.paciente.document.PacienteDocument;
 import br.com.fiap.infra.mongodb.paciente.repository.PacienteMongoDBRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class PacienteAdapter implements PacientePort {
         var pacienteDocument = mapper.paraPacienteDocument(request);
         var buscarPacientePorCpf = buscarPorCpf(request.cpf());
         if (buscarPacientePorCpf.isPresent()) {
-            throw new PacienteJaCadastradoException("Paciente já cadastrado na base de dados");
+            throw new PacienteCadastradoException();
         } else {
             var pacienteCriado = repository.save(pacienteDocument);
             return mapper.paraCriarPacientePortResponse(pacienteCriado);

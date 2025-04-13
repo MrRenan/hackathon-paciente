@@ -20,6 +20,6 @@ public interface PacienteApi extends Api {
     @Operation(summary = "Criar um novo paciente")
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
-    CriarPacienteResponse criarPacienteResponse(@RequestBody CriarPacienteRequest request);
+    CriarPacienteResponse criarPaciente(@RequestBody CriarPacienteRequest request);
 
 }

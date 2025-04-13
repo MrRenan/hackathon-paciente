@@ -16,7 +16,7 @@ public class PacienteController implements PacienteApi {
     private final PacienteUseCase useCase;
 
     @Override
-    public CriarPacienteResponse criarPacienteResponse(CriarPacienteRequest request) {
+    public CriarPacienteResponse criarPaciente(CriarPacienteRequest request) {
         var useCaseRequest = mapper.paraCriarPacienteUseCaseRequest(request);
         var useCaseResponse = useCase.executarCriarPaciente(useCaseRequest);
         return mapper.paraCriarPacienteResponse(useCaseResponse);

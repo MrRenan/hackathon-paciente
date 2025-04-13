@@ -10,4 +10,5 @@ public record CriarPacienteRequest(
         String telefone,
         String email
 ) {
+
 }
