@@ -1,8 +1,10 @@
 package br.com.fiap.features.paciente.adapter.out.client;
 
 import br.com.fiap.features.paciente.adapter.out.client.mapper.PacienteOutMapper;
+import br.com.fiap.features.paciente.application.port.request.BuscarPacientePorCpfPortRequestStub;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequestStub;
 import br.com.fiap.features.paciente.domain.exception.PacienteCadastradoException;
+import br.com.fiap.features.paciente.domain.exception.PacienteNaoEncontradoException;
 import br.com.fiap.infra.mongodb.paciente.document.PacienteDocumentStub;
 import br.com.fiap.infra.mongodb.paciente.repository.PacienteMongoDBRepository;
 import org.junit.jupiter.api.Assertions;
@@ -65,6 +67,41 @@ class PacienteAdapterTest {
             // ACTION & ASSERTIONS
             Assertions.assertThrows(PacienteCadastradoException.class, () -> adapter.criarPaciente(request));
             verify(mapper).paraPacienteDocument(request);
+
+        }
+
+    }
+
+    @Nested
+    @DisplayName("Porta de buscar paciente por CPF")
+    class BuscarPacientePorCpf {
+
+        @Test
+        @DisplayName("Deve executar porta de buscar paciente por CPF com sucesso")
+        void test01() {
+            // ASSETS
+            var request = BuscarPacientePorCpfPortRequestStub.novo().build();
+            var document = PacienteDocumentStub.novo().build();
+            when(repository.findByCpf(any())).thenReturn(Optional.of(document));
+
+            // ACTION
+            var result = adapter.buscarPacientePorCpf(request);
+
+            // ASSERTIONS
+            assertThat(result).usingRecursiveComparison().isEqualTo(document);
+            verify(mapper).paraBuscarPacientePorCpfPortResponse(document);
+
+        }
+
+        @Test
+        @DisplayName("Deve executar porta de criar paciente com erro, quando paciente ja existir")
+        void test02() {
+            // ASSETS
+            var request = BuscarPacientePorCpfPortRequestStub.novo().build();
+            when(repository.findByCpf(any())).thenReturn(Optional.empty());
+
+            // ACTION & ASSERTIONS
+            Assertions.assertThrows(PacienteNaoEncontradoException.class, () -> adapter.buscarPacientePorCpf(request));
 
         }
 

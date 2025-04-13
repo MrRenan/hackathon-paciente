@@ -1,13 +1,14 @@
-package br.com.fiap.features.paciente.adapter.in.rest.v1.response;
+package br.com.fiap.features.paciente.application.port.request;
 
 import lombok.Builder;
 
 @Builder
-public record CriarPacienteResponse(
+public record BuscarPacientePorCpfPortRequest(
         String nomeCompleto,
         String cpf,
         String dataNascimento,
         String telefone,
         String email
 ) {
+
 }

@@ -2,7 +2,9 @@ package br.com.fiap.features.paciente.application.usecase;
 
 import br.com.fiap.features.paciente.application.mapper.PacienteApplicationMapper;
 import br.com.fiap.features.paciente.application.port.PacientePort;
+import br.com.fiap.features.paciente.application.port.response.BuscarPacientePorCpfPortResponseStub;
 import br.com.fiap.features.paciente.application.port.response.CriarPacientePortResponseStub;
+import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequestStub;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequestStub;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -47,6 +49,27 @@ class PacienteUseCaseTest {
             assertThat(result).usingRecursiveComparison().isEqualTo(portResponse);
             verify(mapper).paraCriarPacienteUseCaseResponse(portResponse);
             verify(mapper).paraCriarPacientePortRequest(useCaseRequest);
+        }
+
+    }
+
+    @Nested
+    @DisplayName("Caso de uso de buscar paciente por CPF")
+    class ExecutarBuscarPacientePorCpfUseCase {
+
+        @Test
+        @DisplayName("Deve executar caso de uso de buscar paciente por CPF com sucesso")
+        void test01() {
+            // ASSETS
+            var useCaseRequest = BuscarPacientePorCpfUseCaseRequestStub.novo().build();
+            var portResponse = BuscarPacientePorCpfPortResponseStub.novo().build();
+            when(port.buscarPacientePorCpf(any())).thenReturn(portResponse);
+            // ACTION
+            var result = useCase.executarBuscarPacientePorCpfUseCase(useCaseRequest);
+            // ASSERTIONS
+            assertThat(result).usingRecursiveComparison().isEqualTo(portResponse);
+            verify(mapper).paraBuscarPacientePorCpfUseCaseResponse(portResponse);
+            verify(mapper).paraBuscarPacientePorCpfPortRequest(useCaseRequest);
         }
 
     }
