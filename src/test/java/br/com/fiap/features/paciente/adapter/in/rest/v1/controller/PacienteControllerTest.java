@@ -4,8 +4,7 @@ import br.com.fiap.features.paciente.adapter.in.rest.v1.mapper.PacienteInRestMap
 import br.com.fiap.features.paciente.adapter.in.rest.v1.request.CriarPacienteRequestStub;
 import br.com.fiap.features.paciente.adapter.in.rest.v1.response.PacienteResponse;
 import br.com.fiap.features.paciente.application.usecase.PacienteUseCase;
-import br.com.fiap.features.paciente.application.usecase.response.BuscarPacientePorCpfUseCaseResponseStub;
-import br.com.fiap.features.paciente.application.usecase.response.CriarPacienteUseCaseResponseStub;
+import br.com.fiap.features.paciente.application.usecase.response.PacienteUseCaseResponseStub;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,7 +61,7 @@ class PacienteControllerTest {
         @DisplayName("Deve executar API V1 de criar paciente com sucesso")
         void test01() throws Exception {
             // ASSETS
-            var useCaseResponse = CriarPacienteUseCaseResponseStub.novo().build();
+            var useCaseResponse = PacienteUseCaseResponseStub.novo().build();
             given(useCase.executarCriarPaciente(any())).willReturn(useCaseResponse);
             var request = CriarPacienteRequestStub.novo().build();
             // ACTION
@@ -90,7 +89,7 @@ class PacienteControllerTest {
         void test01() throws Exception {
             // ASSETS
             var cpf = faker.number().digits(11);
-            var useCaseResponse = BuscarPacientePorCpfUseCaseResponseStub.novo().build();
+            var useCaseResponse = PacienteUseCaseResponseStub.novo().build();
             given(useCase.executarBuscarPacientePorCpfUseCase(any())).willReturn(useCaseResponse);
             // ACTION
             var result = mockMvc.perform(get(BASE_URL.concat(String.format("/%s", cpf)))

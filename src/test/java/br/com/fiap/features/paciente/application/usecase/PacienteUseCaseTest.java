@@ -2,8 +2,7 @@ package br.com.fiap.features.paciente.application.usecase;
 
 import br.com.fiap.features.paciente.application.mapper.PacienteApplicationMapper;
 import br.com.fiap.features.paciente.application.port.PacientePort;
-import br.com.fiap.features.paciente.application.port.response.BuscarPacientePorCpfPortResponseStub;
-import br.com.fiap.features.paciente.application.port.response.CriarPacientePortResponseStub;
+import br.com.fiap.features.paciente.application.port.response.PacientePortResponseStub;
 import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequestStub;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequestStub;
 import org.junit.jupiter.api.DisplayName;
@@ -41,13 +40,13 @@ class PacienteUseCaseTest {
         void test01() {
             // ASSETS
             var useCaseRequest = CriarPacienteUseCaseRequestStub.novo().build();
-            var portResponse = CriarPacientePortResponseStub.novo().build();
+            var portResponse = PacientePortResponseStub.novo().build();
             when(port.criarPaciente(any())).thenReturn(portResponse);
             // ACTION
             var result = useCase.executarCriarPaciente(useCaseRequest);
             // ASSERTIONS
             assertThat(result).usingRecursiveComparison().isEqualTo(portResponse);
-            verify(mapper).paraCriarPacienteUseCaseResponse(portResponse);
+            verify(mapper).paraPacienteUseCaseResponse(portResponse);
             verify(mapper).paraCriarPacientePortRequest(useCaseRequest);
         }
 
@@ -62,13 +61,13 @@ class PacienteUseCaseTest {
         void test01() {
             // ASSETS
             var useCaseRequest = BuscarPacientePorCpfUseCaseRequestStub.novo().build();
-            var portResponse = BuscarPacientePorCpfPortResponseStub.novo().build();
+            var portResponse = PacientePortResponseStub.novo().build();
             when(port.buscarPacientePorCpf(any())).thenReturn(portResponse);
             // ACTION
             var result = useCase.executarBuscarPacientePorCpfUseCase(useCaseRequest);
             // ASSERTIONS
             assertThat(result).usingRecursiveComparison().isEqualTo(portResponse);
-            verify(mapper).paraBuscarPacientePorCpfUseCaseResponse(portResponse);
+            verify(mapper).paraPacienteUseCaseResponse(portResponse);
             verify(mapper).paraBuscarPacientePorCpfPortRequest(useCaseRequest);
         }
 

@@ -8,6 +8,8 @@ import br.com.fiap.features.paciente.application.usecase.PacienteUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class PacienteController implements PacienteApi {
@@ -27,6 +29,12 @@ public class PacienteController implements PacienteApi {
         var useCaseRequest = mapper.paraBuscarPacientePorCpfUseCaseRequest(cpf);
         var useCaseResponse = useCase.executarBuscarPacientePorCpfUseCase(useCaseRequest);
         return mapper.paraPacienteResponse(useCaseResponse);
+    }
+
+    @Override
+    public List<PacienteResponse> listarTodosPacientes() {
+        var useCaseResponse = useCase.executarListarTodosPacientes();
+        return useCaseResponse.stream().map(mapper::paraPacienteResponse).toList();
     }
 
 }

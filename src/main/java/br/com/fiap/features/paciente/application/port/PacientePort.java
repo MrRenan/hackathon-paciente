@@ -2,12 +2,15 @@ package br.com.fiap.features.paciente.application.port;
 
 import br.com.fiap.features.paciente.application.port.request.BuscarPacientePorCpfPortRequest;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequest;
-import br.com.fiap.features.paciente.application.port.response.BuscarPacientePorCpfPortResponse;
-import br.com.fiap.features.paciente.application.port.response.CriarPacientePortResponse;
+import br.com.fiap.features.paciente.application.port.response.PacientePortResponse;
+
+import java.util.List;
 
 public interface PacientePort {
 
-    CriarPacientePortResponse criarPaciente(CriarPacientePortRequest request);
+    PacientePortResponse criarPaciente(CriarPacientePortRequest request);
 
-    BuscarPacientePorCpfPortResponse buscarPacientePorCpf(BuscarPacientePorCpfPortRequest portRequest);
+    PacientePortResponse buscarPacientePorCpf(BuscarPacientePorCpfPortRequest portRequest);
+
+    List<PacientePortResponse> listarTodosPacientes();
 }

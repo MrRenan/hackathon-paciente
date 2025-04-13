@@ -52,7 +52,7 @@ class PacienteAdapterTest {
             // ASSERTIONS
             assertThat(result).usingRecursiveComparison().isEqualTo(document);
             verify(mapper).paraPacienteDocument(request);
-            verify(mapper).paraCriarPacientePortResponse(document);
+            verify(mapper).paraPacientePortResponse(document);
 
         }
 
@@ -89,7 +89,7 @@ class PacienteAdapterTest {
 
             // ASSERTIONS
             assertThat(result).usingRecursiveComparison().isEqualTo(document);
-            verify(mapper).paraBuscarPacientePorCpfPortResponse(document);
+            verify(mapper).paraPacientePortResponse(document);
 
         }
 

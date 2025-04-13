@@ -1,8 +1,7 @@
 package br.com.fiap.features.paciente.adapter.out.client.mapper;
 
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequest;
-import br.com.fiap.features.paciente.application.port.response.BuscarPacientePorCpfPortResponse;
-import br.com.fiap.features.paciente.application.port.response.CriarPacientePortResponse;
+import br.com.fiap.features.paciente.application.port.response.PacientePortResponse;
 import br.com.fiap.infra.mongodb.paciente.document.PacienteDocument;
 import org.mapstruct.AnnotateWith;
 import org.mapstruct.AnnotateWith.Element;
@@ -15,7 +14,5 @@ public interface PacienteOutMapper {
 
     PacienteDocument paraPacienteDocument(CriarPacientePortRequest request);
 
-    CriarPacientePortResponse paraCriarPacientePortResponse(PacienteDocument document);
-
-    BuscarPacientePorCpfPortResponse paraBuscarPacientePorCpfPortResponse(PacienteDocument pacienteDocument);
+    PacientePortResponse paraPacientePortResponse(PacienteDocument document);
 }

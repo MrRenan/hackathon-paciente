@@ -4,11 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record BuscarPacientePorCpfPortRequest(
-        String nomeCompleto,
-        String cpf,
-        String dataNascimento,
-        String telefone,
-        String email
+        String cpf
 ) {
 
 }

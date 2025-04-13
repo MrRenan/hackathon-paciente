@@ -4,10 +4,11 @@ import br.com.fiap.features.paciente.application.mapper.PacienteApplicationMappe
 import br.com.fiap.features.paciente.application.port.PacientePort;
 import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequest;
-import br.com.fiap.features.paciente.application.usecase.response.BuscarPacientePorCpfUseCaseResponse;
-import br.com.fiap.features.paciente.application.usecase.response.CriarPacienteUseCaseResponse;
+import br.com.fiap.features.paciente.application.usecase.response.PacienteUseCaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component("pacienteUseCase")
@@ -16,16 +17,20 @@ public class PacienteUseCase {
     private final PacienteApplicationMapper mapper;
     private final PacientePort port;
 
-    public CriarPacienteUseCaseResponse executarCriarPaciente(CriarPacienteUseCaseRequest useCaseRequest) {
+    public PacienteUseCaseResponse executarCriarPaciente(CriarPacienteUseCaseRequest useCaseRequest) {
         var portRequest = mapper.paraCriarPacientePortRequest(useCaseRequest);
         var portResponse = port.criarPaciente(portRequest);
-        return mapper.paraCriarPacienteUseCaseResponse(portResponse);
+        return mapper.paraPacienteUseCaseResponse(portResponse);
     }
 
-    public BuscarPacientePorCpfUseCaseResponse executarBuscarPacientePorCpfUseCase(BuscarPacientePorCpfUseCaseRequest useCaseRequest) {
+    public PacienteUseCaseResponse executarBuscarPacientePorCpfUseCase(BuscarPacientePorCpfUseCaseRequest useCaseRequest) {
         var portRequest = mapper.paraBuscarPacientePorCpfPortRequest(useCaseRequest);
         var portResponse = port.buscarPacientePorCpf(portRequest);
-        return mapper.paraBuscarPacientePorCpfUseCaseResponse(portResponse);
+        return mapper.paraPacienteUseCaseResponse(portResponse);
     }
 
+    public List<PacienteUseCaseResponse> executarListarTodosPacientes() {
+        var portResponse = port.listarTodosPacientes();
+        return portResponse.stream().map(mapper::paraPacienteUseCaseResponse).toList();
+    }
 }

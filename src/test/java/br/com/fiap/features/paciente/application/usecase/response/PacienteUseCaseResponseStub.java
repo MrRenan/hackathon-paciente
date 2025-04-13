@@ -6,16 +6,16 @@ import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class CriarPacienteUseCaseResponseStub {
+public class PacienteUseCaseResponseStub {
 
     protected static final Faker faker = new Faker();
 
-    public static CriarPacienteUseCaseResponseStub novo() {
-        return new CriarPacienteUseCaseResponseStub();
+    public static PacienteUseCaseResponseStub novo() {
+        return new PacienteUseCaseResponseStub();
     }
 
-    public CriarPacienteUseCaseResponse build() {
-        return CriarPacienteUseCaseResponse.builder()
+    public PacienteUseCaseResponse build() {
+        return PacienteUseCaseResponse.builder()
                 .cpf(faker.number().digits(11))
                 .dataNascimento(faker.date().birthday().toString())
                 .email(faker.internet().emailAddress())

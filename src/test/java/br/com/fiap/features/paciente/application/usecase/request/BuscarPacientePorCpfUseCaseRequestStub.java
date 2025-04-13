@@ -17,9 +17,6 @@ public class BuscarPacientePorCpfUseCaseRequestStub {
     public BuscarPacientePorCpfUseCaseRequest build() {
         return BuscarPacientePorCpfUseCaseRequest.builder()
                 .cpf(faker.number().digits(11))
-                .dataNascimento(faker.date().birthday().toString())
-                .email(faker.internet().emailAddress())
-                .nomeCompleto(faker.name().fullName())
                 .build();
     }
 

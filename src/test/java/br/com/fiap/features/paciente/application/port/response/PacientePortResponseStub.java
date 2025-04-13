@@ -1,4 +1,4 @@
-package br.com.fiap.features.paciente.application.usecase.response;
+package br.com.fiap.features.paciente.application.port.response;
 
 import com.github.javafaker.Faker;
 import lombok.NoArgsConstructor;
@@ -6,16 +6,16 @@ import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class BuscarPacientePorCpfUseCaseResponseStub {
+public class PacientePortResponseStub {
 
     protected static final Faker faker = new Faker();
 
-    public static BuscarPacientePorCpfUseCaseResponseStub novo() {
-        return new BuscarPacientePorCpfUseCaseResponseStub();
+    public static PacientePortResponseStub novo() {
+        return new PacientePortResponseStub();
     }
 
-    public BuscarPacientePorCpfUseCaseResponse build() {
-        return BuscarPacientePorCpfUseCaseResponse.builder()
+    public PacientePortResponse build() {
+        return PacientePortResponse.builder()
                 .cpf(faker.number().digits(11))
                 .dataNascimento(faker.date().birthday().toString())
                 .email(faker.internet().emailAddress())

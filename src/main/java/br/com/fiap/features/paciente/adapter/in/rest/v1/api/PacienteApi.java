@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -24,4 +26,8 @@ public interface PacienteApi extends Api {
     @ResponseStatus(OK)
     PacienteResponse buscarPacientePorCpf(@PathVariable("cpf") String cpf);
 
+    @Operation(summary = "Listar todos os pacientes")
+    @GetMapping
+    @ResponseStatus(OK)
+    List<PacienteResponse> listarTodosPacientes();
 }

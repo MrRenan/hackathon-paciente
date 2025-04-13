@@ -1,9 +1,9 @@
-package br.com.fiap.features.paciente.application.usecase.response;
+package br.com.fiap.features.paciente.application.port.response;
 
 import lombok.Builder;
 
 @Builder
-public record CriarPacienteUseCaseResponse(
+public record PacientePortResponse(
         String nomeCompleto,
         String cpf,
         String dataNascimento,
