@@ -4,11 +4,14 @@ import br.com.fiap.features.paciente.adapter.out.client.mapper.PacienteOutMapper
 import br.com.fiap.features.paciente.application.port.request.AtualizarPacientePortRequestStub;
 import br.com.fiap.features.paciente.application.port.request.BuscarPacientePorCpfPortRequestStub;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequestStub;
+import br.com.fiap.features.paciente.application.port.request.RemoverPacientePortRequestStub;
 import br.com.fiap.features.paciente.domain.exception.PacienteCadastradoException;
 import br.com.fiap.features.paciente.domain.exception.PacienteNaoEncontradoException;
 import br.com.fiap.infra.mongodb.paciente.document.PacienteDocument;
 import br.com.fiap.infra.mongodb.paciente.document.PacienteDocumentStub;
 import br.com.fiap.infra.mongodb.paciente.repository.PacienteMongoDBRepository;
+import com.mongodb.client.result.DeleteResult;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,6 +22,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
@@ -40,7 +44,7 @@ class PacienteAdapterTest {
     @Mock
     private MongoTemplate mongoTemplate;
     @Spy
-    private PacienteOutMapper mapper = getMapper(PacienteOutMapper .class);
+    private PacienteOutMapper mapper = getMapper(PacienteOutMapper.class);
 
     @Nested
     @DisplayName("Porta de criar paciente")
@@ -185,6 +189,51 @@ class PacienteAdapterTest {
 
             // ACTION & ASSERTIONS
             assertThrows(PacienteNaoEncontradoException.class, () -> adapter.atualizarPaciente(request));
+
+        }
+
+    }
+
+    @Nested
+    @DisplayName("Porta de remover paciente")
+    class RemoverPaciente {
+
+        @Test
+        @DisplayName("Deve executar porta de remover paciente com sucesso")
+        void test01() {
+            // ASSETS
+            var request = RemoverPacientePortRequestStub.novo().build();
+            var cpf = request.cpf();
+
+            when(mongoTemplate.remove(
+                    any(),
+                    eq(PacienteDocument.class)
+            )).thenReturn(DeleteResult.acknowledged(1L));
+
+            // ACTION
+            Assertions.assertDoesNotThrow(() -> adapter.removerPaciente(request));
+
+            // ASSERTIONS
+            verify(mongoTemplate).remove(
+                    Query.query(Criteria.where("cpf").is(cpf)),
+                    PacienteDocument.class
+            );
+
+        }
+
+        @Test
+        @DisplayName("Deve executar porta de remover paciente com erro, quando paciente não for encontrado")
+        void test02() {
+            // ASSETS
+            var request = RemoverPacientePortRequestStub.novo().build();
+            when(mongoTemplate.remove(
+                    any(Query.class),
+                    any(Class.class)
+            )).thenReturn(DeleteResult.acknowledged(0L));
+
+            // ACTION & ASSERTIONS
+            assertThrows(PacienteNaoEncontradoException.class,
+                    () -> adapter.removerPaciente(request));
 
         }
 

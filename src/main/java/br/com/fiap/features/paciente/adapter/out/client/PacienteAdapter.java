@@ -5,6 +5,7 @@ import br.com.fiap.features.paciente.application.port.PacientePort;
 import br.com.fiap.features.paciente.application.port.request.AtualizarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.request.BuscarPacientePorCpfPortRequest;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequest;
+import br.com.fiap.features.paciente.application.port.request.RemoverPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.response.PacientePortResponse;
 import br.com.fiap.features.paciente.domain.exception.PacienteCadastradoException;
 import br.com.fiap.features.paciente.domain.exception.PacienteNaoEncontradoException;
@@ -13,12 +14,13 @@ import br.com.fiap.infra.mongodb.paciente.repository.PacienteMongoDBRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 @RequiredArgsConstructor
 @Component("pacienteAdapter")
@@ -68,12 +70,24 @@ public class PacienteAdapter implements PacientePort {
         return mapper.paraPacientePortResponse(pacienteAtualizado);
     }
 
+    @Override
+    public void removerPaciente(RemoverPacientePortRequest portRequest) {
+        var contagemPacienteRemovido = mongoTemplate.remove(
+                        query(where("cpf").is(portRequest.cpf())),
+                        PacienteDocument.class)
+                .getDeletedCount();
+
+        if (contagemPacienteRemovido == 0) {
+            throw new PacienteNaoEncontradoException();
+        }
+    }
+
     private PacienteDocument atualizarPaciente(PacienteDocument document) {
 
         var update = mapper.paraUpdate(document);
 
         var pacienteAtualizado = mongoTemplate.findAndModify(
-                Query.query(Criteria.where("cpf").is(document.cpf())),
+                query(where("cpf").is(document.cpf())),
                 update,
                 FindAndModifyOptions.options().returnNew(true),
                 PacienteDocument.class

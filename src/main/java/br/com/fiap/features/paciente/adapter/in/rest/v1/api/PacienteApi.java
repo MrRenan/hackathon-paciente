@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @Validated
 @RequestMapping(path = "/paciente/v1")
@@ -37,4 +36,9 @@ public interface PacienteApi extends Api {
     @ResponseStatus(OK)
     PacienteResponse atualizarPaciente(@PathVariable("cpf") String cpf,
                                        @RequestBody AtualizarPacienteRequest request);
+
+    @Operation(summary = "Remover paciente")
+    @DeleteMapping(path = "/{cpf}")
+    @ResponseStatus(NO_CONTENT)
+    void removerPaciente(@PathVariable("cpf") String cpf);
 }

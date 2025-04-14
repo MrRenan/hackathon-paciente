@@ -28,6 +28,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -158,6 +159,27 @@ class PacienteControllerTest {
             assertThat(response).usingRecursiveComparison().isEqualTo(useCaseResponse);
             verify(mapper).paraAtualizarPacienteUseCaseRequest(request);
             verify(mapper).paraPacienteResponse(useCaseResponse);
+        }
+
+    }
+
+    @Nested
+    @DisplayName("API de remover paciente")
+    class RemoverPaciente {
+
+        @Test
+        @DisplayName("Deve executar API V1 de remover paciente com sucesso")
+        void test01() throws Exception {
+            // ASSETS
+            doNothing().when(useCase).executarRemoverPaciente(any());
+            var cpf = faker.number().digits(11);
+            // ACTION
+            var result = mockMvc.perform(delete(BASE_URL.concat(String.format("/%s", cpf)))
+                    .contentType(APPLICATION_JSON)
+                    .accept(APPLICATION_JSON));
+            // ASSERTIONS
+            result.andExpect(status().isNoContent());
+            verify(mapper).paraRemoverPacienteUseCaseRequest(cpf);
         }
 
     }

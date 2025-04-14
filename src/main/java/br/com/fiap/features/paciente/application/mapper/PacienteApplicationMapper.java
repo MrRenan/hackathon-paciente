@@ -3,10 +3,12 @@ package br.com.fiap.features.paciente.application.mapper;
 import br.com.fiap.features.paciente.application.port.request.AtualizarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.request.BuscarPacientePorCpfPortRequest;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequest;
+import br.com.fiap.features.paciente.application.port.request.RemoverPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.response.PacientePortResponse;
 import br.com.fiap.features.paciente.application.usecase.request.AtualizarPacienteUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequest;
+import br.com.fiap.features.paciente.application.usecase.request.RemoverPacienteUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.response.PacienteUseCaseResponse;
 import org.mapstruct.AnnotateWith;
 import org.mapstruct.AnnotateWith.Element;
@@ -24,4 +26,6 @@ public interface PacienteApplicationMapper {
     BuscarPacientePorCpfPortRequest paraBuscarPacientePorCpfPortRequest(BuscarPacientePorCpfUseCaseRequest useCaseRequest);
 
     AtualizarPacientePortRequest paraAtualizarPacientePortRequest(AtualizarPacienteUseCaseRequest useCaseRequest);
+
+    RemoverPacientePortRequest paraRemoverPacientePortRequest(RemoverPacienteUseCaseRequest useCaseRequest);
 }

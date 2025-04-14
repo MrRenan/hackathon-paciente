@@ -6,6 +6,7 @@ import br.com.fiap.features.paciente.application.port.response.PacientePortRespo
 import br.com.fiap.features.paciente.application.usecase.request.AtualizarPacienteUseCaseRequestStub;
 import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequestStub;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequestStub;
+import br.com.fiap.features.paciente.application.usecase.request.RemoverPacienteUseCaseRequestStub;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -111,6 +112,24 @@ class PacienteUseCaseTest {
             assertThat(result).usingRecursiveComparison().isEqualTo(portResponse);
             verify(mapper).paraPacienteUseCaseResponse(portResponse);
             verify(mapper).paraAtualizarPacientePortRequest(useCaseRequest);
+        }
+
+    }
+
+    @Nested
+    @DisplayName("Caso de uso de remover paciente")
+    class ExecutarRemoverPaciente {
+
+        @Test
+        @DisplayName("Deve executar caso de uso de remover paciente com sucesso")
+        void test01() {
+            // ASSETS
+            var useCaseRequest = RemoverPacienteUseCaseRequestStub.novo().build();
+            doNothing().when(port).removerPaciente(any());
+            // ACTION
+            useCase.executarRemoverPaciente(useCaseRequest);
+            // ASSERTIONS
+            verify(mapper).paraRemoverPacientePortRequest(useCaseRequest);
         }
 
     }

@@ -5,6 +5,7 @@ import br.com.fiap.features.paciente.application.port.PacientePort;
 import br.com.fiap.features.paciente.application.usecase.request.AtualizarPacienteUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequest;
+import br.com.fiap.features.paciente.application.usecase.request.RemoverPacienteUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.response.PacienteUseCaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -39,5 +40,10 @@ public class PacienteUseCase {
         var portRequest = mapper.paraAtualizarPacientePortRequest(useCaseRequest);
         var portResponse = port.atualizarPaciente(portRequest);
         return mapper.paraPacienteUseCaseResponse(portResponse);
+    }
+
+    public void executarRemoverPaciente(RemoverPacienteUseCaseRequest useCaseRequest) {
+        var portRequest = mapper.paraRemoverPacientePortRequest(useCaseRequest);
+        port.removerPaciente(portRequest);
     }
 }

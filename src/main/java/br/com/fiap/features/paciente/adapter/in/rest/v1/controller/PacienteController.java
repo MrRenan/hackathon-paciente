@@ -45,4 +45,10 @@ public class PacienteController implements PacienteApi {
         return mapper.paraPacienteResponse(useCaseResponse);
     }
 
+    @Override
+    public void removerPaciente(String cpf) {
+        var useCaseRequest = mapper.paraRemoverPacienteUseCaseRequest(cpf);
+        useCase.executarRemoverPaciente(useCaseRequest);
+    }
+
 }
