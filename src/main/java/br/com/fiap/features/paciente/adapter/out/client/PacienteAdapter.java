@@ -2,6 +2,7 @@ package br.com.fiap.features.paciente.adapter.out.client;
 
 import br.com.fiap.features.paciente.adapter.out.client.mapper.PacienteOutMapper;
 import br.com.fiap.features.paciente.application.port.PacientePort;
+import br.com.fiap.features.paciente.application.port.request.AtualizarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.request.BuscarPacientePorCpfPortRequest;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.response.PacientePortResponse;
@@ -10,6 +11,10 @@ import br.com.fiap.features.paciente.domain.exception.PacienteNaoEncontradoExcep
 import br.com.fiap.infra.mongodb.paciente.document.PacienteDocument;
 import br.com.fiap.infra.mongodb.paciente.repository.PacienteMongoDBRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,6 +26,7 @@ public class PacienteAdapter implements PacientePort {
 
     private final PacienteOutMapper mapper;
     private final PacienteMongoDBRepository repository;
+    private final MongoTemplate mongoTemplate;
 
     @Override
     public PacientePortResponse criarPaciente(CriarPacientePortRequest request) {
@@ -40,10 +46,9 @@ public class PacienteAdapter implements PacientePort {
     public PacientePortResponse buscarPacientePorCpf(BuscarPacientePorCpfPortRequest portRequest) {
 
         var pacienteDocument = buscarPorCpf(portRequest.cpf());
-        if(pacienteDocument.isPresent()) {
+        if (pacienteDocument.isPresent()) {
             return mapper.paraPacientePortResponse(pacienteDocument.get());
-        }
-        else {
+        } else {
             throw new PacienteNaoEncontradoException();
         }
 
@@ -54,6 +59,31 @@ public class PacienteAdapter implements PacientePort {
 
         var todosPacientesDocument = listarTodos();
         return todosPacientesDocument.stream().map(mapper::paraPacientePortResponse).toList();
+
+    }
+
+    @Override
+    public PacientePortResponse atualizarPaciente(AtualizarPacientePortRequest portRequest) {
+        var pacienteAtualizado = atualizarPaciente(mapper.paraPacienteDocument(portRequest));
+        return mapper.paraPacientePortResponse(pacienteAtualizado);
+    }
+
+    private PacienteDocument atualizarPaciente(PacienteDocument document) {
+
+        var update = mapper.paraUpdate(document);
+
+        var pacienteAtualizado = mongoTemplate.findAndModify(
+                Query.query(Criteria.where("cpf").is(document.cpf())),
+                update,
+                FindAndModifyOptions.options().returnNew(true),
+                PacienteDocument.class
+        );
+
+        if (pacienteAtualizado == null) {
+            throw new PacienteNaoEncontradoException();
+        }
+
+        return pacienteAtualizado;
 
     }
 

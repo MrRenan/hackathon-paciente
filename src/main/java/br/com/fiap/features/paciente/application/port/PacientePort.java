@@ -1,5 +1,6 @@
 package br.com.fiap.features.paciente.application.port;
 
+import br.com.fiap.features.paciente.application.port.request.AtualizarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.request.BuscarPacientePorCpfPortRequest;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.response.PacientePortResponse;
@@ -13,4 +14,6 @@ public interface PacientePort {
     PacientePortResponse buscarPacientePorCpf(BuscarPacientePorCpfPortRequest portRequest);
 
     List<PacientePortResponse> listarTodosPacientes();
+
+    PacientePortResponse atualizarPaciente(AtualizarPacientePortRequest portRequest);
 }

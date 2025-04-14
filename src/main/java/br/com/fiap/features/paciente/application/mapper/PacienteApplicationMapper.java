@@ -1,8 +1,10 @@
 package br.com.fiap.features.paciente.application.mapper;
 
+import br.com.fiap.features.paciente.application.port.request.AtualizarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.request.BuscarPacientePorCpfPortRequest;
 import br.com.fiap.features.paciente.application.port.request.CriarPacientePortRequest;
 import br.com.fiap.features.paciente.application.port.response.PacientePortResponse;
+import br.com.fiap.features.paciente.application.usecase.request.AtualizarPacienteUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.response.PacienteUseCaseResponse;
@@ -20,4 +22,6 @@ public interface PacienteApplicationMapper {
     PacienteUseCaseResponse paraPacienteUseCaseResponse(PacientePortResponse response);
 
     BuscarPacientePorCpfPortRequest paraBuscarPacientePorCpfPortRequest(BuscarPacientePorCpfUseCaseRequest useCaseRequest);
+
+    AtualizarPacientePortRequest paraAtualizarPacientePortRequest(AtualizarPacienteUseCaseRequest useCaseRequest);
 }

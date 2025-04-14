@@ -1,8 +1,10 @@
 package br.com.fiap.features.paciente.adapter.in.rest.v1.mapper;
 
 import br.com.fiap.features.paciente.adapter.in.rest.v1.request.CriarPacienteRequest;
+import br.com.fiap.features.paciente.adapter.in.rest.v1.request.AtualizarPacienteRequest;
 import br.com.fiap.features.paciente.adapter.in.rest.v1.response.PacienteResponse;
 import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequest;
+import br.com.fiap.features.paciente.application.usecase.request.AtualizarPacienteUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequest;
 import br.com.fiap.features.paciente.application.usecase.response.PacienteUseCaseResponse;
 import org.mapstruct.AnnotateWith;
@@ -20,4 +22,5 @@ public interface PacienteInRestMapper {
 
     BuscarPacientePorCpfUseCaseRequest paraBuscarPacientePorCpfUseCaseRequest(String cpf);
 
+    AtualizarPacienteUseCaseRequest paraAtualizarPacienteUseCaseRequest(AtualizarPacienteRequest request);
 }

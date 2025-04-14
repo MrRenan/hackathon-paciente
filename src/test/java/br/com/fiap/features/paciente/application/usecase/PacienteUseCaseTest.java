@@ -3,6 +3,7 @@ package br.com.fiap.features.paciente.application.usecase;
 import br.com.fiap.features.paciente.application.mapper.PacienteApplicationMapper;
 import br.com.fiap.features.paciente.application.port.PacientePort;
 import br.com.fiap.features.paciente.application.port.response.PacientePortResponseStub;
+import br.com.fiap.features.paciente.application.usecase.request.AtualizarPacienteUseCaseRequestStub;
 import br.com.fiap.features.paciente.application.usecase.request.BuscarPacientePorCpfUseCaseRequestStub;
 import br.com.fiap.features.paciente.application.usecase.request.CriarPacienteUseCaseRequestStub;
 import org.junit.jupiter.api.DisplayName;
@@ -14,11 +15,12 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mapstruct.factory.Mappers.getMapper;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Cliente / Cliente UseCase")
@@ -64,11 +66,51 @@ class PacienteUseCaseTest {
             var portResponse = PacientePortResponseStub.novo().build();
             when(port.buscarPacientePorCpf(any())).thenReturn(portResponse);
             // ACTION
-            var result = useCase.executarBuscarPacientePorCpfUseCase(useCaseRequest);
+            var result = useCase.executarBuscarPacientePorCpf(useCaseRequest);
             // ASSERTIONS
             assertThat(result).usingRecursiveComparison().isEqualTo(portResponse);
             verify(mapper).paraPacienteUseCaseResponse(portResponse);
             verify(mapper).paraBuscarPacientePorCpfPortRequest(useCaseRequest);
+        }
+
+    }
+
+    @Nested
+    @DisplayName("Caso de uso de listar todos os pacientes")
+    class ExecutarListarTodosPacientesUseCase {
+
+        @Test
+        @DisplayName("Deve executar caso de uso de listar todos os pacientes com sucesso")
+        void test01() {
+            // ASSETS
+            var portResponse = List.of(PacientePortResponseStub.novo().build());
+            when(port.listarTodosPacientes()).thenReturn(portResponse);
+            // ACTION
+            var result = useCase.executarListarTodosPacientes();
+            // ASSERTIONS
+            assertThat(result).usingRecursiveComparison().isEqualTo(portResponse);
+            verify(mapper, times(portResponse.size())).paraPacienteUseCaseResponse(any());
+        }
+
+    }
+
+    @Nested
+    @DisplayName("Caso de uso de atualizar paciente")
+    class ExecutarAtualizarPaciente {
+
+        @Test
+        @DisplayName("Deve executar caso de uso de atualizar paciente com sucesso")
+        void test01() {
+            // ASSETS
+            var useCaseRequest = AtualizarPacienteUseCaseRequestStub.novo().build();
+            var portResponse = PacientePortResponseStub.novo().build();
+            when(port.atualizarPaciente(any())).thenReturn(portResponse);
+            // ACTION
+            var result = useCase.executarAtualizarPaciente(useCaseRequest);
+            // ASSERTIONS
+            assertThat(result).usingRecursiveComparison().isEqualTo(portResponse);
+            verify(mapper).paraPacienteUseCaseResponse(portResponse);
+            verify(mapper).paraAtualizarPacientePortRequest(useCaseRequest);
         }
 
     }

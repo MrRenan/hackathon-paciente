@@ -2,6 +2,7 @@ package br.com.fiap.features.paciente.adapter.in.rest.v1.api;
 
 import br.com.fiap.features.paciente.adapter.in.rest.v1.Api;
 import br.com.fiap.features.paciente.adapter.in.rest.v1.request.CriarPacienteRequest;
+import br.com.fiap.features.paciente.adapter.in.rest.v1.request.AtualizarPacienteRequest;
 import br.com.fiap.features.paciente.adapter.in.rest.v1.response.PacienteResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.validation.annotation.Validated;
@@ -30,4 +31,10 @@ public interface PacienteApi extends Api {
     @GetMapping
     @ResponseStatus(OK)
     List<PacienteResponse> listarTodosPacientes();
+
+    @Operation(summary = "Atualizar dados do paciente")
+    @PutMapping(path = "/{cpf}")
+    @ResponseStatus(OK)
+    PacienteResponse atualizarPaciente(@PathVariable("cpf") String cpf,
+                                       @RequestBody AtualizarPacienteRequest request);
 }

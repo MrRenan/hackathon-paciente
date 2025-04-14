@@ -2,6 +2,7 @@ package br.com.fiap.features.paciente.adapter.in.rest.v1.controller;
 
 import br.com.fiap.features.paciente.adapter.in.rest.v1.api.PacienteApi;
 import br.com.fiap.features.paciente.adapter.in.rest.v1.mapper.PacienteInRestMapper;
+import br.com.fiap.features.paciente.adapter.in.rest.v1.request.AtualizarPacienteRequest;
 import br.com.fiap.features.paciente.adapter.in.rest.v1.request.CriarPacienteRequest;
 import br.com.fiap.features.paciente.adapter.in.rest.v1.response.PacienteResponse;
 import br.com.fiap.features.paciente.application.usecase.PacienteUseCase;
@@ -27,7 +28,7 @@ public class PacienteController implements PacienteApi {
     @Override
     public PacienteResponse buscarPacientePorCpf(String cpf) {
         var useCaseRequest = mapper.paraBuscarPacientePorCpfUseCaseRequest(cpf);
-        var useCaseResponse = useCase.executarBuscarPacientePorCpfUseCase(useCaseRequest);
+        var useCaseResponse = useCase.executarBuscarPacientePorCpf(useCaseRequest);
         return mapper.paraPacienteResponse(useCaseResponse);
     }
 
@@ -35,6 +36,13 @@ public class PacienteController implements PacienteApi {
     public List<PacienteResponse> listarTodosPacientes() {
         var useCaseResponse = useCase.executarListarTodosPacientes();
         return useCaseResponse.stream().map(mapper::paraPacienteResponse).toList();
+    }
+
+    @Override
+    public PacienteResponse atualizarPaciente(String cpf, AtualizarPacienteRequest request) {
+        var useCaseRequest = mapper.paraAtualizarPacienteUseCaseRequest(request);
+        var useCaseResponse = useCase.executarAtualizarPaciente(useCaseRequest);
+        return mapper.paraPacienteResponse(useCaseResponse);
     }
 
 }
