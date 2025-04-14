@@ -20,6 +20,13 @@ public interface PacienteOutMapper {
 
     PacientePortResponse paraPacientePortResponse(PacienteDocument document);
 
-    Update paraUpdate(PacienteDocument document);
+    default Update paraUpdate(PacienteDocument document) {
+        return new Update()
+                .set("nomeCompleto", document.nomeCompleto())
+                .set("cpf", document.cpf())
+                .set("dataNascimento", document.dataNascimento())
+                .set("telefone", document.telefone())
+                .set("email", document.email());
+    }
 
 }
