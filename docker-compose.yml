@@ -1,29 +1,28 @@
-version: '3.8'
-
 services:
-  mongo:
+  mongo-paciente:
     image: mongo:6.0
-    container_name: mongo
+    container_name: mongo-paciente
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: hackathon-paciente
     ports:
-      - "27017:27017"
+      - "27019:27017"
     volumes:
-      - mongo-data:/data/db
+      - mongo-paciente-data:/data/db
 
   paciente-service:
     build: .
     container_name: paciente-service
     ports:
-      - "8080:8080"
+      - "8082:8080"
     depends_on:
-      - mongo
+      - mongo-paciente
     environment:
-      SPRING_PROFILES_ACTIVE: default
-      SPRING_DATA_MONGODB_URI: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongo:27017/hackathon-paciente?authSource=admin
-      SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATA_MONGODB_USERNAME: ${MONGO_ROOT_USERNAME}
+      SPRING_DATA_MONGODB_PASSWORD: ${MONGO_ROOT_PASSWORD}
 
 volumes:
-  mongo-data:
+  mongo-paciente-data: {}

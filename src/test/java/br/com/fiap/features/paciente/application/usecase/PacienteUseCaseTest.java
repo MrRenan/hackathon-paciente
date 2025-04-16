@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Cliente / Cliente UseCase")
+@DisplayName("Paciente / Paciente UseCase")
 class PacienteUseCaseTest {
 
     @InjectMocks

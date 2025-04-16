@@ -32,7 +32,7 @@ Na raiz do projeto, execute:
 docker-compose up -d
 ```
 
-Isso iniciará o MongoDB localmente na porta `27017`.
+Isso iniciará o MongoDB localmente na porta `27019`.
 
 ### Rodando o microsserviço
 
@@ -43,7 +43,7 @@ Isso iniciará o MongoDB localmente na porta `27017`.
 A aplicação estará disponível em:
 
 ```
-http://localhost:8080
+http://localhost:8082
 ```
 
 ---
@@ -95,8 +95,11 @@ Para rodar os testes:
 [GitHub - MrRenan](https://github.com/MrRenan)
 
 **Samuel**
+[GitHub - SamuelXIsidorio](https://github.com/SamuelXIsidorio)
+
 
 **Renato**
+[GitHub - urpdrum](https://github.com/urpdrum)
 
 ---
 

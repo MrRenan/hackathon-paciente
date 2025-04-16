@@ -12,8 +12,7 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @ExtendWith(MockitoExtension.class)
 class GlobalExceptionHandlerTest {
@@ -54,6 +53,24 @@ class GlobalExceptionHandlerTest {
                 () -> assertEquals(NOT_FOUND, response.getStatusCode()),
                 () -> assertEquals(mensagemEsperada, Objects.requireNonNull(response.getBody()).message()),
                 () -> assertEquals(NOT_FOUND.toString(), Objects.requireNonNull(response.getBody()).code())
+        );
+    }
+
+    @Test
+    @DisplayName("Deve retornar status 500 INTERNAL SERVER ERROR quando Exception for lançada")
+    void test03() {
+        // ASSETS
+        var ex = new RuntimeException("Erro genérico");
+        var mensagemEsperada = "Ocorreu um erro interno: ".concat(ex.getMessage());
+
+        // ACTION
+        var response = handler.handleTodasExcessoes(ex);
+
+        // ASSERTIONS
+        assertAll(
+                () -> assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode()),
+                () -> assertEquals(mensagemEsperada, Objects.requireNonNull(response.getBody()).message()),
+                () -> assertEquals(INTERNAL_SERVER_ERROR.toString(), Objects.requireNonNull(response.getBody()).code())
         );
     }
 
