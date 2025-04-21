@@ -41,4 +41,5 @@ public interface PacienteApi extends Api {
     @DeleteMapping(path = "/{cpf}")
     @ResponseStatus(NO_CONTENT)
     void removerPaciente(@PathVariable("cpf") String cpf);
+
 }
